@@ -1,2 +1,2 @@
-# atom-docs
-Documentation for Github Atom Editor
+# Atom Docs
+Documentation for Github Atom Editor and Atom Shell
