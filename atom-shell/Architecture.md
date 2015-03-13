@@ -10,7 +10,7 @@ Atom Shell framework consists of three main parts:
 * **Renderer-side** is responsible for UI rendering
 * **Modules** that bridge browser-side and renderer-side, and also help control application lifecycle
 
-![Atom Shell Components](images/components.png)
+![Atom Shell Components](https://raw.githubusercontent.com/ilyavorobiev/atom-docs/master/atom-shell/images/components.PNG)
 
 Important note, in Atom Shell terminology by **renderer-side** we mean thing that we usually call client-side (scripts and markup that executed in a web browser) and by **browser-side** we mean thing that we usually call server-side (scripts that executed on a server). For more information on names and purposes please read **Internals** section.
 
@@ -94,7 +94,7 @@ atom.exe test-app\
 
 When you execute this command, OS will create for you a new instance of Atom Shell (browser process) that will load the script specified in the package.json. From this point your script will have control and you can do anything that you want.
 
-![Execution Process](images/execution-process.png)
+![Execution Process](https://raw.githubusercontent.com/ilyavorobiev/atom-docs/master/atom-shell/images/execution-process.PNG)
 
 Renderer process will be created for each window that you specify in your browser code.
 
@@ -166,7 +166,7 @@ win.loadUrl('https://github.com');
 For more information about Communication between sides please read **Internals** section.
 
 ## 6. Modules
-![Modules](images/modules.png)
+![Modules](https://raw.githubusercontent.com/ilyavorobiev/atom-docs/master/atom-shell/images/modules.PNG)
 
 Atom Shell provides different modules for convenience that can be used on one of the sides or on both.
 
@@ -191,8 +191,6 @@ Both sides:
 * [**crash-reporter**](https://github.com/atom/atom-shell/blob/master/docs/api/crash-reporter.md) - automatically submitting crash reporters to remote server
 * [**screen**](https://github.com/atom/atom-shell/blob/master/docs/api/screen.md) - info about screen size, displays, cursor position, etc.
 * [**shell**](https://github.com/atom/atom-shell/blob/master/docs/api/shell.md) - provides functions related to desktop integration
-
-## 7. Custom DOM elements
 
 ## 7. Internals
 ### 7.1. Browser and Renderer
