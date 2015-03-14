@@ -192,8 +192,15 @@ Both sides:
 * [**screen**](https://github.com/atom/atom-shell/blob/master/docs/api/screen.md) - info about screen size, displays, cursor position, etc.
 * [**shell**](https://github.com/atom/atom-shell/blob/master/docs/api/shell.md) - provides functions related to desktop integration
 
-## 7. Internals
-### 7.1. Browser and Renderer
+## 7. Custom DOM elements
+Framework contains custom DOM elements and functions for convenience. [**File object**](https://github.com/atom/atom-shell/blob/master/docs/api/file-object.md) is abstraction that provides access to native files from HTML5 file API.
+
+[**window.open function**](https://github.com/atom/atom-shell/blob/master/docs/api/window-open.md) implemented internally as a new instance of window (new renderer process) but the web page, that executed it, will receive proxy object with standard limited functionality of HTML.
+
+[**webview tag**](https://developer.chrome.com/apps/tags/webview) is special Chromium tag for Chrome apps that embed guest content. Guest content executed in separate renderer process than your application that keeps your app safe from the embedded content.
+
+## 8. Internals
+### 8.1. Browser and Renderer
 Atom Shell roots go to open-source web browser [Chromium](http://www.chromium.org/), that is customized and extended in Atom Shell framework for writing desktop applications using web technologies. Framework uses main part of Chromium called [Content module](http://www.chromium.org/developers/content-module) that is responsible only for HTML rendering and separated from other features such as extensions, spell checking and so on.
 
 In Chromium you have two main processes:
@@ -211,15 +218,15 @@ Also usually there is additional renderer process called GPU that is used only f
 * **GPU** (one)
 * **Renderer** (multiple)
 
-### 7.2. No Sandboxing
+### 8.2. No Sandboxing
 Sandboxing is one of the key principles that isolates web applications from each other and OS in Chromium. It is implemented via broker and target process [sandbox architecture](http://www.chromium.org/developers/design-documents/sandbox). The broker is a privileged controller/supervisor of the activities of the sandboxed (target) processes. In Chromium, the broker is always the browser process and the renderer is always target process, unless the --no-sandbox command specified.
 
 Atom Shell uses **no-sandbox** configuration that's why all your rendering processes and browser process have access to system resources without restrictions.
 
-### 7.3. Chromium and io.js (Node.js)
+### 8.3. Chromium and io.js (Node.js)
 Atom Shell implements JavaScript runtime by integrating io.js (fork of Node.js). Integration has been done by using [multiple execution contexts](https://strongloop.com/strongblog/whats-new-node-js-v0-12-multiple-context-execution/) in Node. By design io.js is a single-threaded application, built around the concept of a single event loop, with hundreds of global variables that store various bits of state. **Multiple execution contexts** feature provides you ability to safe your contexts if you call the Node from multi-threaded app, like Chromium. Atom Shell uses **no-sandbox** configuration, as we mentioned before, that gives you with multi-context execution ability to use Node.
 
 You can run JavaScript code and Node.js (io.js) modules inside browser and renderer processes.
 
-### 7.4. Communication between Renderer and Browser
+### 8.4. Communication between Renderer and Browser
 Browser and renderer are separately running processes that communicate in Chromium using special API called [Chromium Inter Process Communication (Chromium IPC)](http://www.chromium.org/developers/design-documents/inter-process-communication). Atom Shell built simplified API called [ipc](https://github.com/atom/atom-shell/blob/master/docs/api/ipc-browser.md) on top of it. You can easily use it in JavaScript. Atom Shell also provides simplified remote method invocation that called [remote](https://github.com/atom/atom-shell/blob/master/docs/api/remote.md) and built on top of ipc.
